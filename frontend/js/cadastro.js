@@ -1,6 +1,6 @@
 const formulario = document.getElementById("cadastro-form");
 
-formulario.addEventListener("submit", (evento) => {
+formulario.addEventListener("submit", async (evento) => {
     evento.preventDefault();
 
     const nome = document.getElementById("nome").value.trim();
@@ -33,5 +33,32 @@ formulario.addEventListener("submit", (evento) => {
         return;
     }
 
-    alert("Cadastro validado com sucesso!");
+    try {
+        const resposta = await fetch("/api/usuarios", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nome,
+                email,
+                senha
+            })
+        });
+
+        const dados = await resposta.json();
+
+        if (!resposta.ok) {
+            alert(dados.mensagem);
+            return;
+        }
+
+        alert(dados.mensagem);
+
+        formulario.reset();
+
+    } catch (erro) {
+        console.error("Erro ao realizar cadastro:", erro);
+        alert("Não foi possível conectar ao servidor.");
+    }
 });

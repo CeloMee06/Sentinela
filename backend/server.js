@@ -1,5 +1,8 @@
 const express = require("express");
 const path = require("path");
+const db = require("./database/database");
+
+const usuariosRoutes = require("./routes/usuarios");
 
 const app = express();
 
@@ -9,10 +12,16 @@ app.use(express.json());
 
 app.use(express.static(path.join(__dirname, "../frontend")));
 
+app.use("/api/usuarios", usuariosRoutes);
+
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "../frontend/index.html"));
 });
 
-app.listen(PORT, () => {
+const servidor = app.listen(PORT, () => {
     console.log(`Servidor Sentinela rodando em http://localhost:${PORT}`);
+});
+
+servidor.on("error", (erro) => {
+    console.error("Erro no servidor:", erro);
 });
