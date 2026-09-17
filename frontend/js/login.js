@@ -35,6 +35,9 @@ formulario.addEventListener("submit", async (evento) => {
             return;
         }
 
+        // Guarda os dados do usuário para o Dashboard
+        localStorage.setItem("usuario", JSON.stringify(dados.usuario));
+
         alert(dados.mensagem);
 
         window.location.href = "dashboard.html";
