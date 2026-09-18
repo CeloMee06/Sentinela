@@ -11,7 +11,7 @@ const logoutRoutes = require("./routes/logout");
 
 const app = express();
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
@@ -28,8 +28,8 @@ app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "../frontend/index.html"));
 });
 
-const servidor = app.listen(PORT, () => {
-    console.log(`Servidor Sentinela rodando em http://localhost:${PORT}`);
+const servidor = app.listen(PORT, "0.0.0.0", () => {
+    console.log(`Servidor Sentinela rodando na porta ${PORT}`);
 });
 
 servidor.on("error", (erro) => {
