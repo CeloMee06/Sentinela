@@ -16,6 +16,15 @@ db.exec(`
         tipo TEXT NOT NULL DEFAULT 'usuario',
         bloqueado INTEGER NOT NULL DEFAULT 0,
         criado_em DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+
+    CREATE TABLE IF NOT EXISTS atividades (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        usuario_id INTEGER,
+        tipo TEXT NOT NULL,
+        descricao TEXT NOT NULL,
+        criado_em DATETIME DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
     )
 `);
 

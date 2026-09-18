@@ -4,6 +4,8 @@ const path = require("path");
 const db = require("./database/database");
 const usuariosRoutes = require("./routes/usuarios");
 const loginRoutes = require("./routes/login");
+const perfilRoutes = require("./routes/perfil");
+const atividadesRoutes = require("./routes/atividades");
 
 const app = express();
 
@@ -15,6 +17,8 @@ app.use(express.static(path.join(__dirname, "../frontend")));
 
 app.use("/api/usuarios", usuariosRoutes);
 app.use("/api/login", loginRoutes);
+app.use("/api/perfil", perfilRoutes);
+app.use("/api/atividades", atividadesRoutes);
 
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "../frontend/index.html"));

@@ -39,6 +39,15 @@ router.post("/", async (req, res) => {
             });
         }
 
+        db.prepare(`
+            INSERT INTO atividades (usuario_id, tipo, descricao)
+            VALUES (?, ?, ?)
+        `).run(
+            usuario.id,
+            "login",
+            "Login realizado com sucesso."
+        );
+
         res.status(200).json({
             mensagem: "Login realizado com sucesso!",
             usuario: {
@@ -48,6 +57,7 @@ router.post("/", async (req, res) => {
                 tipo: usuario.tipo
             }
         });
+
     } catch (erro) {
         console.error("Erro ao realizar login:", erro);
 
