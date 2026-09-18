@@ -1,12 +1,18 @@
 const express = require("express");
 
 const db = require("../database/database");
+const { verificarSessao } = require("../middleware/auth");
 
 const router = express.Router();
 
-router.get("/:usuarioId", (req, res) => {
 
-    const { usuarioId } = req.params;
+// =========================
+// LISTAR ATIVIDADES DO USUÁRIO
+// =========================
+
+router.get("/", verificarSessao, (req, res) => {
+
+    const usuarioId = req.usuarioId;
 
     try {
 
@@ -19,18 +25,28 @@ router.get("/:usuarioId", (req, res) => {
             `)
             .all(usuarioId);
 
+
         res.status(200).json({
             atividades
         });
 
+
     } catch (erro) {
 
-        console.error("Erro ao buscar atividades:", erro);
+        console.error(
+            "Erro ao buscar atividades:",
+            erro
+        );
+
 
         res.status(500).json({
-            mensagem: "Não foi possível carregar as atividades."
+            mensagem:
+                "Não foi possível carregar as atividades."
         });
+
     }
+
 });
+
 
 module.exports = router;
