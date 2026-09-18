@@ -14,6 +14,26 @@ router.post("/", async (req, res) => {
         });
     }
 
+    if (nome.length > 100 || email.length > 100) {
+        return res.status(400).json({
+            mensagem: "Nome ou e-mail muito longo."
+        });
+    }
+
+    const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+    if (!emailValido) {
+        return res.status(400).json({
+            mensagem: "Digite um e-mail válido."
+        });
+    }
+
+    if (senha.length > 50) {
+        return res.status(400).json({
+            mensagem: "A senha deve ter no máximo 50 caracteres."
+        });
+    }
+
     if (senha.length < 8) {
         return res.status(400).json({
             mensagem: "A senha deve ter pelo menos 8 caracteres."

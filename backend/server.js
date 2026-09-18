@@ -6,6 +6,8 @@ const usuariosRoutes = require("./routes/usuarios");
 const loginRoutes = require("./routes/login");
 const perfilRoutes = require("./routes/perfil");
 const atividadesRoutes = require("./routes/atividades");
+const adminRoutes = require("./routes/admin");
+const logoutRoutes = require("./routes/logout");
 
 const app = express();
 
@@ -19,6 +21,8 @@ app.use("/api/usuarios", usuariosRoutes);
 app.use("/api/login", loginRoutes);
 app.use("/api/perfil", perfilRoutes);
 app.use("/api/atividades", atividadesRoutes);
+app.use("/api/admin", adminRoutes);
+app.use("/api/logout", logoutRoutes);
 
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "../frontend/index.html"));
